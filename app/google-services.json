@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "229384270727",
+    "project_id": "assignment-class-app",
+    "storage_bucket": "assignment-class-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229384270727:android:7dfda858866aa9c7b3d922",
+        "android_client_info": {
+          "package_name": "com.james1mumo.assignmentclassapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "229384270727-augb8c55fu41cfp07fnl3f765bcq30nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwBrBCTUXDzAq0u9tE2sw7ESx9lJ8dw5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "229384270727-augb8c55fu41cfp07fnl3f765bcq30nc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
