@@ -22,6 +22,8 @@ import com.androidstudy.daraja.model.AccessToken;
 import com.androidstudy.daraja.model.LNMExpress;
 import com.androidstudy.daraja.model.LNMResult;
 import com.androidstudy.daraja.util.TransactionType;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.james1mumo.assignmentclassapp.HomeActivity;
 import com.james1mumo.assignmentclassapp.R;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,7 +100,6 @@ public class CheckOutFragment extends Fragment {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -130,7 +133,8 @@ public class CheckOutFragment extends Fragment {
             if (mobile.isEmpty()){
                 FancyToast.makeText(getContext(), "Enter Mobile number First", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
             }else {
-                makeMpesaPayment(mobile, "1");
+                int amount=Integer.parseInt(textViewPrice.getText().toString().split("Ksh. ")[1]); String.valueOf(amount);
+                makeMpesaPayment(mobile,String.valueOf(amount));
             }
         });
 
@@ -190,14 +194,26 @@ public class CheckOutFragment extends Fragment {
                         FancyToast.makeText(getContext(), lnmResult.ResponseDescription, FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
                         progressDialog.dismiss();
 
-                        getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
-                        getActivity().finish();
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("TotalToPay").child(uid).child("Mpesa Payments");
+                        HashMap<String ,String > hashMap = new HashMap<>();
+                        hashMap.put("mobile", mobile);
+                        hashMap.put("amount", amount);
+
+                        databaseReference.push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
+                                getActivity().finish();
+                            }
+                        });
+
+
                     }
 
                     @Override
                     public void onError(String error) {
                         Log.i(getActivity().getClass().getSimpleName(), error);
-                        FancyToast.makeText(getActivity(), error, FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                        FancyToast.makeText(getActivity(), error.toString(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
                         progressDialog.dismiss();
                     }
                 }

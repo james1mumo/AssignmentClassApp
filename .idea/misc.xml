@@ -5,7 +5,7 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.20833333333333334" />
         <entry key="app/src/main/res/drawable-v24/login_background.xml" value="0.209375" />
-        <entry key="app/src/main/res/layout/activity_home.xml" value="0.15092592592592594" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_check_out.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
