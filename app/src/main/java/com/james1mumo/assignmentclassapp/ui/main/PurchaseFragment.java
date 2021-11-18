@@ -202,7 +202,7 @@ class MyListAdapter extends ArrayAdapter<String> {
         Button buttonAdd = rowView.findViewById(R.id.buttonAdd);
 
         textViewName.setText(names.get(position));
-        textViewPrice.setText("Item Price is: Ksh. "+prices.get(position));
+        textViewPrice.setText("Ksh. "+prices.get(position));
         textViewTotalPrice.setText("Total Price To Pay = Ksh. 0");
         Glide.with(context).load(images.get(position)).placeholder(android.R.drawable.ic_menu_gallery).into(imageView);
 
@@ -217,7 +217,7 @@ class MyListAdapter extends ArrayAdapter<String> {
         buttonLess.setOnClickListener(v -> {
             int quantity = Integer.parseInt(textViewQuantity.getText().toString());
             if (quantity == 0){
-                FancyToast.makeText(context.getApplicationContext(), "You can't order 0 items", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                FancyToast.makeText(context.getApplicationContext(), "You can't order less than 0 items", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
             }else {
                 textViewQuantity.setText(String.valueOf(quantity - 1));
                 int itemPrice = Integer.parseInt(textViewPrice.getText().toString().split("Ksh. ")[1]);

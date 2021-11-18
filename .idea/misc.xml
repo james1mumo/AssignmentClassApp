@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/fragment_check_out.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_purchase.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_purchase_static.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.33" />
         <entry key="app/src/main/res/layout/mylist.xml" value="0.19322916666666667" />
       </map>

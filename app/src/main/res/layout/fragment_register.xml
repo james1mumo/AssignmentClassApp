@@ -87,6 +87,7 @@
 
             <RadioGroup
                 android:layout_width="match_parent"
+                android:id="@+id/genderRadioGroup"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="32dp">
                 <RadioButton

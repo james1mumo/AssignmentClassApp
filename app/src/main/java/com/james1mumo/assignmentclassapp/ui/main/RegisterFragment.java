@@ -8,12 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class RegisterFragment extends Fragment {
     private EditText editTextFirstName, editTextSecondName, editTextEmail, editTextIdNumber, editTextAddress,
             editTextPassword, editTextPasswordConfirm;
     private RadioButton radioButtonFemale, radioButtonMale;
+    private RadioGroup genderRadioGroup;
     private TextView textViewError;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
@@ -102,6 +105,7 @@ public class RegisterFragment extends Fragment {
 
         radioButtonFemale = view.findViewById(R.id.radioButtonFemale);
         radioButtonMale = view.findViewById(R.id.radioButtonMale);
+        genderRadioGroup=view.findViewById(R.id.genderRadioGroup);
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(getActivity());
@@ -125,20 +129,57 @@ public class RegisterFragment extends Fragment {
         String password = editTextPassword.getText().toString();
         String passwordConfirm = editTextPasswordConfirm.getText().toString();
 
-        if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(secondName) || TextUtils.isEmpty(email)
-                || TextUtils.isEmpty(idNumber) || TextUtils.isEmpty(address) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConfirm)){
-            FancyToast.makeText(getActivity(), "Fill all details first", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
-        }else if (!(radioButtonFemale.isChecked() || radioButtonMale.isChecked())){
+        if(TextUtils.isEmpty(firstName)){
+            editTextFirstName.setError("Required");
+            editTextFirstName.requestFocus();
+        }else if(TextUtils.isEmpty(secondName)){
+                editTextSecondName.setError("Required");
+                editTextSecondName.requestFocus();
+        } else if(TextUtils.isEmpty(email)){
+            editTextEmail.setError("Required");
+            editTextEmail.requestFocus();
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(editTextEmail.getText().toString()).matches()){
+            FancyToast.makeText(getActivity(), "Invalid Email", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+            editTextEmail.requestFocus();
+        } else if (!(radioButtonFemale.isChecked() || radioButtonMale.isChecked())){
             FancyToast.makeText(getActivity(), "Choose Your Gender first", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+        }else if(TextUtils.isEmpty(idNumber)){
+            editTextIdNumber.setError("Required");
+            editTextIdNumber.requestFocus();
+        } else if(TextUtils.isEmpty(address)){
+            editTextAddress.setError("Required");
+            editTextAddress.requestFocus();
+        }else if(TextUtils.isEmpty(password)){
+            editTextPassword.setError("Required");
+            editTextPassword.requestFocus();
+        }else if(TextUtils.isEmpty(passwordConfirm)){
+            editTextPasswordConfirm.setError("Required");
+            editTextPasswordConfirm.requestFocus();
         }else if (!password.equals(passwordConfirm)){
             FancyToast.makeText(getActivity(), "Passwords do not match", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
             editTextPasswordConfirm.setError("not matching");
             editTextPasswordConfirm.requestFocus();
-        }else {
+        }else if (password.length() <6){
+            FancyToast.makeText(getActivity(), "Short password/nUse more than 6 characters", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+            editTextPassword.requestFocus();
+        }
+
+        else {
             progressDialog.setTitle("Please Wait...");
             progressDialog.setMessage("Creating Account");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
+
+            editTextFirstName.setText("");
+            editTextSecondName.setText("");
+            editTextEmail.setText("");
+            editTextIdNumber.setText("");
+            editTextAddress.setText("");
+            editTextPassword.setText("");
+            editTextPasswordConfirm.setText("");
+
+
+
 
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
@@ -167,9 +208,9 @@ public class RegisterFragment extends Fragment {
                 }
             }).addOnFailureListener(e -> {
                 progressDialog.dismiss();
-                FancyToast.makeText(getActivity(), "Error Occurred", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
-                textViewError.setText(e.toString());
-                textViewError.requestFocus();
+                FancyToast.makeText(getActivity(), "Email address is taken by another user", FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+//                    textViewError.setText(e.toString());
+//                    textViewError.requestFocus();
             });
         }
     }

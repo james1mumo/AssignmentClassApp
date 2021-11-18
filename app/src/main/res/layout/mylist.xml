@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".AboutActivity">
+    android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -15,63 +14,89 @@
         app:cardElevation="3dp"
         android:layout_marginBottom="8dp"
         android:layout_marginHorizontal="16dp">
-        <LinearLayout
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/imageView"
+                android:layout_width="149dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="209dp"
                 android:src="@android:drawable/ic_menu_gallery"
-                android:layout_gravity="center"
-                android:layout_margin="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                app:layout_constraintEnd_toEndOf="@+id/textViewName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewName"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:gravity="center_horizontal"
                 android:padding="16dp"
                 android:text="Name"
                 android:textColor="@color/black"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/textViewPrice"
+                app:layout_constraintEnd_toEndOf="@+id/textViewPrice"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/textViewPrice"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="16dp"
                 android:text="Price"
                 android:textColor="@color/black"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/textViewTotalPrice"
+                app:layout_constraintEnd_toEndOf="@+id/textViewTotalPrice"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+
             <TextView
                 android:id="@+id/textViewTotalPrice"
-                android:layout_width="match_parent"
+                android:layout_width="379dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:padding="16dp"
                 android:text="Price"
                 android:textColor="@color/black"
-                android:textSize="24sp"/>
+                android:textSize="24sp"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <TextView
                 android:id="@+id/textViewLocation"
-                android:visibility="gone"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="location"
-                android:layout_weight="2"
-                android:textSize="20sp"
                 android:gravity="center_horizontal"
+                android:padding="16dp"
+                android:text="location"
                 android:textColor="@color/purple_700"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="16dp"/>
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="3"
+                app:layout_constraintTop_toBottomOf="@id/textViewTotalPrice"
                 android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
                 <Button
@@ -102,7 +127,9 @@
             </LinearLayout>
 
 
-        </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
