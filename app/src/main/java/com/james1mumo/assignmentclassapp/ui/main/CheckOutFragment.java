@@ -134,7 +134,14 @@ public class CheckOutFragment extends Fragment {
                 FancyToast.makeText(getContext(), "Enter Mobile number First", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
             }else {
                 int amount=Integer.parseInt(textViewPrice.getText().toString().split("Ksh. ")[1]); String.valueOf(amount);
-                makeMpesaPayment(mobile,String.valueOf(amount));
+
+                if (amount==0){
+                    FancyToast.makeText(getContext(), "Make some purchases first", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                }else {
+                    makeMpesaPayment(mobile,String.valueOf(amount));
+
+                }
+
             }
         });
 
